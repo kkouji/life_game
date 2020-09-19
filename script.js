@@ -48,9 +48,9 @@ class Cell {
     if (canvas.getContext) {
       var context = canvas.getContext('2d');
       context.fillStyle = 'rgb(255,00,00)'; //塗りつぶしの色は赤
-      context.fillRect(this.width, this.height, 1, 1);
+      context.fillRect(this.width, this.height, 2, 2);
       // context.fillText(this.age,this.width, this.height+2);
-      context.fillText(this.serial_num,this.width, this.height+2);
+      //context.fillText(this.serial_num,this.width, this.height+2);
     }
   }
 
@@ -120,7 +120,9 @@ function sample() {
     console.log("i",i,"age",cells[i].age);
     cells[i].get_old();
     cells[i].move();
-    cells[i].birth();
+    if(i < 200){
+      cells[i].birth();
+    }
     cells[i].deth();
     cells[i].display();
     if (!cells[i].alive) {
@@ -129,5 +131,19 @@ function sample() {
   }
   cells = cells.filter(v => v);
 
-  document.getElementById('info').innerText = serial_num;
+  show_info();
+
 }
+
+function show_info(){
+  var infoarea = document.getElementById('info');
+  var text = "";
+  for (let i in cells) {
+    text += "Index:"+i
+    text += "Serial:"+cells[i].serial_num;
+    text += "Age:"+cells[i].age;
+    text += "\n";
+  }
+  infoarea.innerText = text;
+}
+
